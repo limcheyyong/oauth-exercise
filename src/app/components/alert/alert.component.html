@@ -1,0 +1,21 @@
+<h2 mat-dialog-title>通知</h2>
+<mat-dialog-content>
+  <div class="flexible ai-center">
+    <mat-icon
+      [color]="'info'"
+      style="font-size: 55px; width: 55px; height: 55px"
+      >{{ data.icon || "warning" }}</mat-icon
+    >
+    <div style="width: 100%; margin-left: 1rem">
+      <ng-container *ngIf="data.content as content">
+        <p *ngFor="let message of content.split('\n')">{{ message }}</p>
+      </ng-container>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions class="jc-end">
+  <button mat-stroked-button mat-dialog-close="confirm">確定</button>
+  <button *ngIf="data.showCancel" mat-stroked-button mat-dialog-close>
+    取消
+  </button>
+</mat-dialog-actions>
