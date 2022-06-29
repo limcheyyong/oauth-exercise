@@ -6,6 +6,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [],
@@ -17,6 +18,7 @@ import { MatInputModule } from '@angular/material/input';
     MatDialogModule,
     MatIconModule,
     MatInputModule,
+    MatTooltipModule,
   ],
   exports: [
     MatCardModule,
@@ -25,6 +27,7 @@ import { MatInputModule } from '@angular/material/input';
     MatDialogModule,
     MatIconModule,
     MatInputModule,
+    MatTooltipModule,
   ],
 })
 export class SharedMaterialModule {}

@@ -13,5 +13,10 @@
     "target": "https://notify-api.line.me",
     "secure": false,
     "changeOrigin": true
+  },
+  "/api/revoke": {
+    "target": "https://notify-api.line.me",
+    "secure": false,
+    "changeOrigin": true
   }
 }

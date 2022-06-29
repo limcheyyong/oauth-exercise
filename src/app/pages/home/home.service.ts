@@ -23,6 +23,9 @@ export class HomeService {
     });
   }
 
+  /**
+   * 發送通知
+   */
   notice(message: string): Observable<any> {
     const formData = new FormData();
     formData.append('message', message);
@@ -32,5 +35,20 @@ export class HomeService {
         Authorization: `Bearer ${this.authorizeCallbackService.getToken()}`,
       },
     });
+  }
+
+  /**
+   * 取消訂閱功能
+   */
+  revoke(): Observable<any> {
+    return this.http.post<any>(
+      '/api/revoke',
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${this.authorizeCallbackService.getToken()}`,
+        },
+      }
+    );
   }
 }

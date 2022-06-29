@@ -30,4 +30,11 @@ export class AuthorizeCallbackService {
 
     return this.http.post(`/oauth/token`, formData);
   }
+
+  /**
+   * 登出
+   */
+  logout(): void {
+    sessionStorage.removeItem('access_token');
+  }
 }

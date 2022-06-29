@@ -1,8 +1,11 @@
+import { Router } from '@angular/router';
+import { DialogService } from './../../shared/services/dialog.service';
 import { HomeService } from './home.service';
 import { Component, OnInit } from '@angular/core';
 import { AuthorizeCallbackService } from '../authorize-callback/authorize-callback.service';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Subject } from 'rxjs';
+import { EMPTY, iif, Subject } from 'rxjs';
+import { switchMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -17,12 +20,13 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private homeService: HomeService,
-    private authorizeCallbackService: AuthorizeCallbackService
+    private authorizeCallbackService: AuthorizeCallbackService,
+    private dialogService: DialogService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.homeService.getLineAccessToken().subscribe((data) => {
-      console.log(data);
       this.user$.next(data);
     });
   }
@@ -30,8 +34,31 @@ export class HomeComponent implements OnInit {
   notice(): void {
     this.homeService
       .notice(this.form.get('message')?.value)
-      .subscribe((data) => {
-        console.log(data);
+      .pipe(
+        switchMap(() =>
+          this.dialogService
+            .alert({ content: '發送成功', icon: 'check' })
+            .afterClosed()
+        )
+      )
+      .subscribe(() => {
+        this.form.reset();
+      });
+  }
+
+  exit(): void {
+    this.dialogService
+      .alert({ content: '確定退出？', showCancel: true })
+      .afterClosed()
+      .pipe(
+        switchMap((data) => iif(() => data, this.homeService.revoke(), EMPTY)),
+        tap(() => this.authorizeCallbackService.logout()),
+        switchMap(() =>
+          this.dialogService.alert({ content: '註銷成功' }).afterClosed()
+        )
+      )
+      .subscribe(() => {
+        this.router.navigate(['/login']);
       });
   }
 }

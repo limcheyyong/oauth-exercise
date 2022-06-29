@@ -8,3 +8,12 @@
   align-items: center;
   height: 100%;
 }
+
+.sub-title {
+  display: flex;
+  justify-content: space-between;
+}
+
+.exit-button {
+  cursor: pointer;
+}

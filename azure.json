@@ -1,0 +1,17 @@
+{
+  "hosting": [
+    {
+      "app": {
+        "project": "oauth-login",
+        "target": "build",
+        "configuration": "production",
+        "path": "dist/oauth-login"
+      },
+      "azureHosting": {
+        "subscription": "e8ae5a6f-88e3-4d14-9276-f121b1c2b088",
+        "resourceGroupName": "oauth-login-static-deploy",
+        "account": "oauthloginstatic"
+      }
+    }
+  ]
+}
