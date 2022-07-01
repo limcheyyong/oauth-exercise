@@ -4,17 +4,7 @@
     "secure": false,
     "changeOrigin": true
   },
-  "/api/notify": {
-    "target": "https://notify-api.line.me",
-    "secure": false,
-    "changeOrigin": true
-  },
-  "/api/status": {
-    "target": "https://notify-api.line.me",
-    "secure": false,
-    "changeOrigin": true
-  },
-  "/api/revoke": {
+  "/api": {
     "target": "https://notify-api.line.me",
     "secure": false,
     "changeOrigin": true

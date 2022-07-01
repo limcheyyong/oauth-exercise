@@ -2,7 +2,6 @@ import { DialogService } from './../../shared/services/dialog.service';
 import { AuthorizeCallbackService } from './authorize-callback.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-authorize-callback',

@@ -13,6 +13,7 @@ export class AuthorizeCallbackService {
   setToken(token: string): void {
     sessionStorage.setItem('access_token', token);
   }
+
   getToken(): string | null {
     if (sessionStorage.getItem('access_token')) {
       return sessionStorage.getItem('access_token');
@@ -20,6 +21,9 @@ export class AuthorizeCallbackService {
     return null;
   }
 
+  /**
+   * 取得 Access Token
+   */
   getLineAccessToken(code: string): Observable<unknown> {
     const formData = new FormData();
     formData.append('grant_type', 'authorization_code');
@@ -27,7 +31,6 @@ export class AuthorizeCallbackService {
     formData.append('redirect_uri', `${location.origin}/authorize-callback`);
     formData.append('client_id', environment.clientId);
     formData.append('client_secret', environment.dummyClientSecret);
-
     return this.http.post(`/oauth/token`, formData);
   }
 
