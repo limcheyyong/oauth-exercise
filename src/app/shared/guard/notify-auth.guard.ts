@@ -22,12 +22,12 @@ export class NotifyAuthGuard implements CanActivate {
     | boolean
     | UrlTree {
     if (
-      sessionStorage.getItem('access_token') &&
-      sessionStorage.getItem('state') === 'notify'
+      localStorage.getItem('access_token') &&
+      localStorage.getItem('state') === 'notify'
     ) {
       return true;
     }
-    sessionStorage.clear();
+    localStorage.clear();
     return this.router.createUrlTree(['/login']);
   }
 }

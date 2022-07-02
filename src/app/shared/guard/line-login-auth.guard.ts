@@ -22,13 +22,12 @@ export class LineLoginAuthGuard implements CanActivate {
     | boolean
     | UrlTree {
     if (
-      sessionStorage.getItem('access_token') &&
-      sessionStorage.getItem('state') === 'login' &&
-      sessionStorage.getItem('id_token')
+      localStorage.getItem('access_token') &&
+      localStorage.getItem('id_token')
     ) {
       return true;
     }
-    sessionStorage.clear();
+    localStorage.clear();
     return this.router.createUrlTree(['/login']);
   }
 }

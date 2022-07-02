@@ -1,3 +1,4 @@
+import { AuthorizeCallbackService } from './../authorize-callback/authorize-callback.service';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -6,14 +7,10 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class HomeService {
-  constructor(private http: HttpClient) {}
-
-  /**
-   * 取得 Line Access Token 狀態
-   */
-  getNotifyStatus(): Observable<any> {
-    return this.http.get<any>('/api/status');
-  }
+  constructor(
+    private http: HttpClient,
+    private authorizeCallbackService: AuthorizeCallbackService
+  ) {}
 
   /**
    * 發送通知
@@ -22,13 +19,10 @@ export class HomeService {
     const formData = new FormData();
     formData.append('message', message);
 
-    return this.http.post('/api/notify', formData);
-  }
-
-  /**
-   * 取消訂閱功能
-   */
-  revoke(): Observable<any> {
-    return this.http.post<any>('/api/revoke', {});
+    return this.http.post('/api/notify', formData, {
+      headers: {
+        Authorization: `Bearer ${this.authorizeCallbackService.getNotifyAccessToken()}`,
+      },
+    });
   }
 }

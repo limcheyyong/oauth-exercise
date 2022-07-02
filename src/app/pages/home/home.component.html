@@ -1,10 +1,9 @@
 <div class="center">
-  <mat-card class="example-card" *ngIf="user$ | async as user">
+  <mat-card class="example-card">
     <mat-card-subtitle class="sub-title">
-      <div>user:{{ user.target }}</div>
-      <mat-icon (click)="exit()" class="exit-button" matTooltip="登出"
+      <!-- <mat-icon (click)="exit()" class="exit-button" matTooltip="登出"
         >close</mat-icon
-      >
+      > -->
     </mat-card-subtitle>
     <mat-card-title>Send Notice</mat-card-title>
     <mat-card-content>

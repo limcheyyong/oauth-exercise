@@ -5,7 +5,7 @@ import { AuthorizeCallbackComponent } from './pages/authorize-callback/authorize
 import { NotifyAuthGuard } from './shared/guard/notify-auth.guard';
 
 const redirectTo = () => {
-  const state = sessionStorage.getItem('state');
+  const state = localStorage.getItem('state');
   if (!state) {
     return 'login';
   }
@@ -21,7 +21,6 @@ const routes: Routes = [
   },
   {
     path: 'notify',
-    canActivate: [NotifyAuthGuard],
     loadChildren: () =>
       import('./pages/home/home.module').then((m) => m.HomeModule),
   },

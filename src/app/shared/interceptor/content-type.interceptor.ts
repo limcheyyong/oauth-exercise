@@ -16,14 +16,14 @@ export class ContentTypeInterceptor implements HttpInterceptor {
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    if (this.authorizeCallbackService.getState() === 'login') {
-      const newRequest = request.clone({
-        setHeaders: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      });
-      return next.handle(newRequest);
-    }
+    // if (this.authorizeCallbackService.getState() === 'login') {
+    //   const newRequest = request.clone({
+    //     setHeaders: {
+    //       'Content-Type': 'application/x-www-form-urlencoded',
+    //     },
+    //   });
+    //   return next.handle(newRequest);
+    // }
 
     return next.handle(request);
   }

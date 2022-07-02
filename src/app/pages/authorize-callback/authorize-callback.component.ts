@@ -26,7 +26,7 @@ export class AuthorizeCallbackComponent implements OnInit {
     const state = this.route.snapshot.queryParamMap.get('state')!;
 
     this.authorizeCallbackService.setState(state);
-
+    console.log(state);
     // LINE 登入
     if (state === 'login') {
       this.authorizeCallbackService.getLineAccessToken(code).subscribe({
@@ -50,24 +50,28 @@ export class AuthorizeCallbackComponent implements OnInit {
     }
 
     // Notify 登入
-    if (state === 'notify') {
-      this.authorizeCallbackService.getLineNotifyAccessToken(code).subscribe({
-        next: (res: any) => {
-          this.authorizeCallbackService.setAccessToken(res.access_token);
-          this.dialogService.alert({ content: '登入成功', icon: 'info' });
-          this.router.navigate(['/notify']);
-        },
-        error: () => {
-          this.dialogService
-            .alert({ content: 'code 失效', icon: 'info' })
-            .afterClosed()
-            .subscribe(() => {
-              this.authorizeCallbackService.logout();
-              this.router.navigate(['/login']);
-            });
-        },
-      });
-      return;
-    }
+    // if (state === 'notify') {
+    //   this.authorizeCallbackService
+    //     .getLineNotifyBackendAccessToken(code)
+    //     .subscribe({
+    //       next: (res: any) => {
+    //         this.authorizeCallbackService.setNotifyBackendAccessToken(
+    //           res.access_token
+    //         );
+    //         this.dialogService.alert({ content: '登入成功', icon: 'info' });
+    //         this.router.navigate(['/notify']);
+    //       },
+    //       error: () => {
+    //         this.dialogService
+    //           .alert({ content: 'code 失效', icon: 'info' })
+    //           .afterClosed()
+    //           .subscribe(() => {
+    //             this.authorizeCallbackService.logout();
+    //             this.router.navigate(['/login']);
+    //           });
+    //       },
+    //     });
+    //   return;
+    // }
   }
 }

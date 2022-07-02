@@ -1,10 +1,10 @@
 import { Router } from '@angular/router';
-import { DialogService } from './../../shared/services/dialog.service';
+import { DialogService } from '../../shared/services/dialog.service';
 import { HomeService } from './home.service';
 import { Component, OnInit } from '@angular/core';
 import { AuthorizeCallbackService } from '../authorize-callback/authorize-callback.service';
 import { FormControl, FormGroup } from '@angular/forms';
-import { EMPTY, iif, Subject } from 'rxjs';
+import { EMPTY, iif, Subject, of } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 
 @Component({
@@ -13,7 +13,6 @@ import { switchMap, tap } from 'rxjs/operators';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  user$ = new Subject<any>();
   form = new FormGroup({
     message: new FormControl(''),
   });
@@ -25,11 +24,7 @@ export class HomeComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit(): void {
-    this.homeService.getNotifyStatus().subscribe((data) => {
-      this.user$.next(data);
-    });
-  }
+  ngOnInit(): void {}
 
   notice(): void {
     this.homeService
@@ -51,11 +46,9 @@ export class HomeComponent implements OnInit {
       .alert({ content: '確定退出？', showCancel: true })
       .afterClosed()
       .pipe(
-        switchMap((data) => iif(() => data, this.homeService.revoke(), EMPTY)),
+        switchMap((data) => iif(() => data, of(true), EMPTY)),
         tap(() => this.authorizeCallbackService.logout()),
-        switchMap(() =>
-          this.dialogService.alert({ content: '註銷成功' }).afterClosed()
-        )
+        switchMap(() => this.dialogService.alert({ content: '' }).afterClosed())
       )
       .subscribe(() => {
         this.router.navigate(['/login']);
