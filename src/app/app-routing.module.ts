@@ -4,6 +4,15 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthorizeCallbackComponent } from './pages/authorize-callback/authorize-callback.component';
 import { NotifyAuthGuard } from './shared/guard/notify-auth.guard';
 
+const redirectTo = () => {
+  const state = sessionStorage.getItem('state');
+  if (!state) {
+    return 'login';
+  }
+
+  return state === 'notify' ? 'notify' : 'person';
+};
+
 const routes: Routes = [
   {
     path: 'login',
@@ -27,7 +36,7 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: sessionStorage.getItem('state') === 'login' ? 'person' : 'home',
+    redirectTo: redirectTo(),
   },
 ];
 
