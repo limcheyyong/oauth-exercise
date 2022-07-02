@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.homeService.getLineAccessToken().subscribe((data) => {
+    this.homeService.getNotifyStatus().subscribe((data) => {
       this.user$.next(data);
     });
   }

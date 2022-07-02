@@ -4,9 +4,11 @@
 
 export const environment = {
   production: false,
-  clientId: 'U9UUaxoXcDfFMsBq0kFj28',
-  dummyClientSecret: 'O77gpnpxmehpoD0L0UHsTDjKC3ZTyxQFWcasADU1Ykp',
-  notifyApiUrl: 'https://notify-api.line.me',
+  clientIdNotify: 'U9UUaxoXcDfFMsBq0kFj28',
+  clientIdLineLogin: '1657269117',
+  clientSecretNotify: 'O77gpnpxmehpoD0L0UHsTDjKC3ZTyxQFWcasADU1Ykp',
+  clientSecretLineLogin: '1d670b71cfe946a543b51b1bd80787e7',
+
 };
 
 /*

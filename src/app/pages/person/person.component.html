@@ -1,0 +1,14 @@
+<div class="center">
+  <mat-card class="example-card" *ngIf="user$ | async as user">
+    <mat-card-subtitle class="sub-title">
+      <mat-icon (click)="exit()" class="exit-button" matTooltip="登出"
+        >close</mat-icon
+      >
+    </mat-card-subtitle>
+    <mat-card-title>使用者資訊</mat-card-title>
+    <mat-card-content class="content">
+      <img [src]="user.picture" width="200px" height="200px" />
+      <div>名稱：{{ user.name }}</div>
+    </mat-card-content>
+  </mat-card>
+</div>

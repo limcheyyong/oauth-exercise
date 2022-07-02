@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuard implements CanActivate {
+export class LineLoginAuthGuard implements CanActivate {
   constructor(private router: Router) {}
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -21,10 +21,14 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    if (sessionStorage.getItem('access_token')) {
+    if (
+      sessionStorage.getItem('access_token') &&
+      sessionStorage.getItem('state') === 'login' &&
+      sessionStorage.getItem('id_token')
+    ) {
       return true;
     }
-
+    sessionStorage.clear();
     return this.router.createUrlTree(['/login']);
   }
 }

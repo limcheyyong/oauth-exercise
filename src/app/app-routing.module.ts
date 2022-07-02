@@ -1,7 +1,8 @@
-import { AuthGuard } from './shared/guard/auth.guard';
+import { LineLoginAuthGuard } from './shared/guard/line-login-auth.guard';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthorizeCallbackComponent } from './pages/authorize-callback/authorize-callback.component';
+import { NotifyAuthGuard } from './shared/guard/notify-auth.guard';
 
 const routes: Routes = [
   {
@@ -10,16 +11,23 @@ const routes: Routes = [
       import('./pages/login/login.module').then((m) => m.LoginModule),
   },
   {
-    path: 'home',
-    canActivate: [AuthGuard],
+    path: 'notify',
+    canActivate: [NotifyAuthGuard],
     loadChildren: () =>
       import('./pages/home/home.module').then((m) => m.HomeModule),
   },
+  {
+    path: 'person',
+    canActivate: [LineLoginAuthGuard],
+    loadChildren: () =>
+      import('./pages/person/person.module').then((m) => m.PersonModule),
+  },
   { path: 'authorize-callback', component: AuthorizeCallbackComponent },
+
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'home',
+    redirectTo: sessionStorage.getItem('state') === 'login' ? 'person' : 'home',
   },
 ];
 

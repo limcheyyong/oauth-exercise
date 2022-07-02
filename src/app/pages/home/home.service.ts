@@ -11,7 +11,7 @@ export class HomeService {
   /**
    * 取得 Line Access Token 狀態
    */
-  getLineAccessToken(): Observable<any> {
+  getNotifyStatus(): Observable<any> {
     return this.http.get<any>('/api/status');
   }
 

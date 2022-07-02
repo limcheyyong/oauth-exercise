@@ -4,6 +4,11 @@
     "secure": false,
     "changeOrigin": true
   },
+  "/v2.1": {
+    "target": "https://api.line.me/oauth2",
+    "secure": false,
+    "changeOrigin": true
+  },
   "/api": {
     "target": "https://notify-api.line.me",
     "secure": false,

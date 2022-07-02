@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  clientId: 'U9UUaxoXcDfFMsBq0kFj28',
+  clientIdNotify: 'U9UUaxoXcDfFMsBq0kFj28',
+  clientIdLineLogin: 1657269117,
   dummyClientSecret: 'O77gpnpxmehpoD0L0UHsTDjKC3ZTyxQFWcasADU1Ykp',
-  notifyApiUrl: 'https://notify-api.line.me',
 };

@@ -1,3 +1,4 @@
+import { ContentTypeInterceptor } from './shared/interceptor/content-type.interceptor';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -23,6 +24,11 @@ import { TokenInterceptor } from './shared/interceptor/token.interceptor';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ContentTypeInterceptor,
       multi: true,
     },
   ],

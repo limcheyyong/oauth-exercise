@@ -23,21 +23,51 @@ export class AuthorizeCallbackComponent implements OnInit {
     }
 
     const code = this.route.snapshot.queryParamMap.get('code')!;
+    const state = this.route.snapshot.queryParamMap.get('state')!;
 
-    this.authorizeCallbackService.getLineAccessToken(code).subscribe({
-      next: (res: any) => {
-        this.authorizeCallbackService.setToken(res.access_token);
-        this.dialogService.alert({ content: '登入成功', icon: 'info' });
-        this.router.navigate(['/']);
-      },
-      error: () => {
-        this.dialogService
-          .alert({ content: 'code 失效', icon: 'info' })
-          .afterClosed()
-          .subscribe(() => {
-            this.router.navigate(['/login']);
-          });
-      },
-    });
+    this.authorizeCallbackService.setState(state);
+
+    // LINE 登入
+    if (state === 'login') {
+      this.authorizeCallbackService.getLineAccessToken(code).subscribe({
+        next: (res: any) => {
+          this.authorizeCallbackService.setIdToken(res.id_token);
+          this.authorizeCallbackService.setAccessToken(res.access_token);
+          this.dialogService.alert({ content: '登入成功', icon: 'info' });
+          this.router.navigate(['/person']);
+        },
+        error: () => {
+          this.dialogService
+            .alert({ content: 'code 失效', icon: 'info' })
+            .afterClosed()
+            .subscribe(() => {
+              this.authorizeCallbackService.logout();
+              this.router.navigate(['/login']);
+            });
+        },
+      });
+      return;
+    }
+
+    // Notify 登入
+    if (state === 'notify') {
+      this.authorizeCallbackService.getLineNotifyAccessToken(code).subscribe({
+        next: (res: any) => {
+          this.authorizeCallbackService.setAccessToken(res.access_token);
+          this.dialogService.alert({ content: '登入成功', icon: 'info' });
+          this.router.navigate(['/notify']);
+        },
+        error: () => {
+          this.dialogService
+            .alert({ content: 'code 失效', icon: 'info' })
+            .afterClosed()
+            .subscribe(() => {
+              this.authorizeCallbackService.logout();
+              this.router.navigate(['/login']);
+            });
+        },
+      });
+      return;
+    }
   }
 }
